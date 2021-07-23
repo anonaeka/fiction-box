@@ -4,7 +4,8 @@ import { Link } from "react-router-dom"
 import './csscontrol/Navbar.css';
 import FictionLogo from './images/fictions.png';
 
-const Wennev = () => {
+
+const Webnav = (props) => {
     
     return (
         <Navbar collapseOnSelect expand="lg" bg="light">
@@ -20,20 +21,31 @@ const Wennev = () => {
                         <Nav.Link className="font-ex" as={Link} to="/about">About</Nav.Link>
                     </Nav>
                     <Nav>
-                        <Dropdown as={ButtonGroup}>
-                            <Button variant="outline-danger" tag={Link} to="/login" >User</Button>
-                            <Dropdown.Toggle split variant="outline-danger" id="dropdown-split-basic" />
-                            <Dropdown.Menu>
-                                <Dropdown.Item as={Link} to="/edituser">Manage Profile</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/createfiction">Manage Fiction</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+
                         &nbsp;&nbsp;
-                        <Button variant="outline-info" tag={Link} to="/login">Login</Button>
+                        {props.isLoggedIn ? (
+                            <>
+                                <Dropdown as={ButtonGroup}>
+                                <Button variant="outline-danger" tag={Link} to="/login" >User</Button>
+                                <Dropdown.Toggle split variant="outline-danger" id="dropdown-split-basic" />
+                                <Dropdown.Menu>
+                                    <Dropdown.Item as={Link} to="/edituser">Manage Profile</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/createfiction">Manage Fiction</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                            &nbsp;&nbsp;
+                            <Button variant="danger" as={Link} to="/logout">Logout</Button>
+                        </>
+                        ): (
+                            <>
+                                <Button variant="outline-info" as={Link} to="/login">Login</Button>
+                                &nbsp;&nbsp;
+                                <Button variant="success" as={Link} to="/signup">SignUp</Button>
+                            </>
+                        )}
+
                         &nbsp;&nbsp;
-                        <Button variant="success" tag={Link} to="/signup">SignUp</Button>
-                        &nbsp;&nbsp;
-                        <Button variant="danger" tag={Link} to="/logout">Logout</Button>
+
                     </Nav>
                 </Navbar.Collapse>
             </Container>
@@ -41,4 +53,4 @@ const Wennev = () => {
     )
 }
 
-export default Wennev
+export default Webnav

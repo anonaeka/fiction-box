@@ -36,16 +36,15 @@ const Webnav = (props) => {
                             &nbsp;&nbsp;
                             <Button variant="danger" as={Link} to="/logout">Logout</Button>
                         </>
-                        ): (
+                        ) : 
+                        (
                             <>
                                 <Button variant="outline-info" as={Link} to="/login">Login</Button>
                                 &nbsp;&nbsp;
                                 <Button variant="success" as={Link} to="/signup">SignUp</Button>
                             </>
                         )}
-
                         &nbsp;&nbsp;
-
                     </Nav>
                 </Navbar.Collapse>
             </Container>

@@ -8,6 +8,7 @@ const Fiction = () => {
     const apiUrl = "http://localhost:4000/api/v1/user/fictions"
     const [fictionsArray, setFictionsArray] = useState([]);
 
+
     useEffect(() => {
         axios.get(`${apiUrl}`).then((response) => {
             setFictionsArray(response.data);
@@ -32,7 +33,7 @@ const Fiction = () => {
                                 <Card.Text>
                                     {fictions.description}
                                 </Card.Text>
-                                <Card.Img variant="top" src={fictions.image_url} />
+                                <Card.Img variant="top" src={fictions.image_url} /> 
                                 &nbsp;
                                 <Card.Title>
                                     {fictions.user.username}

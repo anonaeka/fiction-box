@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Button, Container} from "react-bootstrap";
 import Client from "./base/api";
 
-export default function SignupPage(props) {
+export default function SignupPage() {
     const [username, setUser] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

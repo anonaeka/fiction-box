@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+
+.font-ex {
+    font-size: larger;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.image-resize {
+    border-radius: 8px;
+    height: 800px;
+    overflow: hidden;
+}
+

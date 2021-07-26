@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react"
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom"
-import Client from "./base/api";
 
-const Fiction = () => {
+const ManageItem = () => {
 
     const [fictionsArray, setFictionsArray] = useState([]);
 
@@ -51,4 +50,4 @@ const Fiction = () => {
     )
 }
 
-export default Fiction
+export default ManageItem

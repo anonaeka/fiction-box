@@ -1,31 +1,24 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState} from "react";
 import { Form, Button, Container} from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import Client from "./base/api";
 
 
 
-export default function LoginPage(props) {
+export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errorMessage,setErrorMessage] = useState("");
-    const [loginStatus, setLoginStatus] = useState("");
-
 
     const login = async (event) => {
         event.preventDefault()
-        const user = { email,password }
-        const res = await fetch("http://localhost:4000/api/v1/user/sign_in", {
-            method: "POST",
-            body: JSON.stringify(user),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        console.log(res.status)
-        const data = await res.json()
-        console.log(data)
-
+        const user = {email, password}
+        Client
+            .post("/sign_in", user)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
     
     return (

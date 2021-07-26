@@ -1,18 +1,18 @@
-import axios from "axios"
 import { useState, useEffect } from "react"
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom"
+import Client from "./base/api";
 
 const Fiction = () => {
 
-    const apiUrl = "http://localhost:4000/api/v1/user/fictions"
     const [fictionsArray, setFictionsArray] = useState([]);
 
-
     useEffect(() => {
-        axios.get(`${apiUrl}`).then((response) => {
+        Client
+        .get("/fictions")
+        .then((response) => {
             setFictionsArray(response.data);
-            // console.log(response.data);
+            console.log(response.data);
         })
     }, [])
 
@@ -20,7 +20,7 @@ const Fiction = () => {
         <Container>
             <h1><center>Fictions</center></h1>
             <Row xs={1} md={3} className="g-4">
-                {fictionsArray.map(fictions => (
+                {fictionsArray && fictionsArray.map(fictions => (
                     <Col key={fictions.id}>
                         <Card>
                             <Card.Header>

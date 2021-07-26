@@ -9,6 +9,7 @@ import NotFound from './components/NotFound';
 import Webfoot from './components/Footer';
 import { useState } from "react";
 import LoginPage from './components/Login';
+import SignupPage from './components/Signup';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route exact path="/fiction" component={Fiction} />
           <Route exact path="/about" component={About} />
           <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/signup" component={SignupPage} />
           <Route component={NotFound} />
         </Switch>
       </div>

@@ -15,6 +15,7 @@ export default function LoginPage() {
             .post("/sign_in", user)
             .then(res => {
                 console.log(res)
+                localStorage.setItem("jwt", res.data.jwt)
             })
             .catch(err => {
                 console.log(err)

@@ -4,7 +4,7 @@ export default function stateReducer (currentState, action) {
     switch (action.type) {
 
         case "setToken": {
-            localStorage.setItem("token", action.data.jwt)
+            localStorage.setItem("jwt", action.data.jwt)
             return {
                 ...currentState,
                 token: action.data.jwt

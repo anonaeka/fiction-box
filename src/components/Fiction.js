@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Button, Dropdown, InputGroup, SplitButton, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom"
 import Client from "./base/api";
 
@@ -19,6 +19,23 @@ const Fiction = () => {
     return (
         <Container>
             <h1><center>Fictions</center></h1>
+            <h2><center></center></h2>
+            <>
+                <InputGroup className="mb-3">
+                    <FormControl aria-label="Text input with dropdown button" />
+                    <SplitButton
+                        variant="outline-secondary"
+                        title="Search"
+                        id="segmented-button-dropdown-2"
+                        alignRight
+                    >
+                        <Dropdown.Item>A-Z</Dropdown.Item>
+                        <Dropdown.Item>New Fictions</Dropdown.Item>
+                        <Dropdown.Item>Old Fictions</Dropdown.Item>
+                    </SplitButton>
+                </InputGroup>
+            </>
+            <>
             <Row xs={1} md={3} className="g-4">
                 {fictionsArray && fictionsArray.map(fictions => (
                     <Col key={fictions.id}>
@@ -44,6 +61,7 @@ const Fiction = () => {
                     </Col>
                 ))}
             </Row>
+            </>
 
         </Container>
 

@@ -1,11 +1,17 @@
 import { Navbar, Container, Nav, Button, ButtonGroup, Dropdown } from "react-bootstrap";
 import {LinkContainer} from 'react-router-bootstrap';
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
 import './csscontrol/Navbar.css';
 import FictionLogo from './images/fictions.png';
+import { useHistory } from "react-router-dom";
 
-
-const Webnav = (props) => {
+const Webnav = () => {
+    const history = useHistory();
+    function logout() {
+        window.location.reload();
+        localStorage.removeItem('jwt')
+        history.push("/login")
+    }
     
     return (
         <Navbar collapseOnSelect expand="lg" bg="light">
@@ -23,7 +29,7 @@ const Webnav = (props) => {
                     <Nav>
 
                         &nbsp;&nbsp;
-                        {props.isLoggedIn ? (
+                        {localStorage.getItem("jwt") ? (
                             <>
                                 <Dropdown as={ButtonGroup}>
                                 <Button variant="outline-danger" tag={Link} to="/login" >User</Button>
@@ -34,7 +40,7 @@ const Webnav = (props) => {
                                 </Dropdown.Menu>
                             </Dropdown>
                             &nbsp;&nbsp;
-                            <Button variant="danger" as={Link} to="/logout">Logout</Button>
+                            <Button variant="danger" onClick={() => logout()}>Logout</Button>
                         </>
                         ) : 
                         (

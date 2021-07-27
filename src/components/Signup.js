@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom"
 import { Form, Button, Container} from "react-bootstrap";
 import Client from "./base/api";
 
@@ -7,6 +8,7 @@ export default function SignupPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [password_confirmation, setPassword_confirmation] = useState("");
+    const history = useHistory();
 
     const register = async (event) => {
         event.preventDefault()
@@ -19,6 +21,7 @@ export default function SignupPage() {
             .catch(err => {
                 console.log(err)
             })
+        history.push("/login")
     }
 
 

@@ -1,12 +1,12 @@
 import React, { useState} from "react";
+import { useHistory } from "react-router-dom"
 import { Form, Button, Container} from "react-bootstrap";
 import Client from "./base/api";
 
-
-
-export default function LoginPage() {
+export default function LoginPage({setLoggedIn}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const history = useHistory();
 
     const login = async (event) => {
         event.preventDefault()
@@ -16,10 +16,12 @@ export default function LoginPage() {
             .then(res => {
                 console.log(res)
                 localStorage.setItem("jwt", res.data.jwt)
+                setLoggedIn(true)
             })
             .catch(err => {
                 console.log(err)
             })
+        history.push("/")
     }
     
     return (

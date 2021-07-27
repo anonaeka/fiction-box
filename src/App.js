@@ -10,10 +10,15 @@ import Webfoot from './components/Footer';
 import { useState } from "react";
 import LoginPage from './components/Login';
 import SignupPage from './components/Signup';
+import stateReducer, { stateContext } from "./stateReducer";
 
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false)
+  // const [store, dispatch] = useReducer(stateReducer, {
+  //   token: localStorage.getItem("jwt")
+  // })
+
   
   return (
     <Router>
@@ -23,7 +28,9 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/fiction" component={Fiction} />
           <Route exact path="/about" component={About} />
-          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/login">
+            <LoginPage setLoggedIn={setLoggedIn} />
+          </Route>
           <Route exact path="/signup" component={SignupPage} />
           <Route component={NotFound} />
         </Switch>

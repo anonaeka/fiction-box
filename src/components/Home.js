@@ -1,4 +1,4 @@
-import { Container, Carousel, Button } from "react-bootstrap";
+import { Container, Carousel } from "react-bootstrap";
 import './csscontrol/Home.css'
 
 const Home = () => {

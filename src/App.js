@@ -10,32 +10,36 @@ import Webfoot from './components/Footer';
 import { useState } from "react";
 import LoginPage from './components/Login';
 import SignupPage from './components/Signup';
-import stateReducer, { stateContext } from "./stateReducer";
 import ManageItem from './components/onuser/Manageitem';
 import Client from './components/base/api';
 import { useEffect } from 'react';
 import ItemDetail from './components/guestuser/Fictiondetails';
 import ReviewDetails from './components/guestuser/Reviewdetails';
+import ManageUser from './components/onuser/Manageuser';
+import CreateFiction from './components/onuser/Createfic';
 
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   useEffect(() => {
-    fetch("http://localhost:4000/api/v1/user/get_user", {
-      // credentials: "include"
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem('jwt')}`
-      }
-    })
-    .then(response => response.json())
-    .then(json => {
-      if (json.user) {
-        setUsername(json.user.username)
-        setLoggedIn(true)
-      }}) 
-  }, [])
-
+    Client
+      .get("/get_user", {
+        headers: {
+          "Authorization" : `Bearer ${localStorage.getItem('jwt')}`
+        }
+      })
+      .then((res) => {
+        console.log(res.data)
+        if (res.data.user) {
+          setUsername(res.data.user.username)
+          setLoggedIn(true)
+        }
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+    }, [])
 
   return (
     <Router>
@@ -44,10 +48,12 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/fiction" component={Fiction} />
-          <Route exact path="/item_detail" component={ItemDetail} />
+          <Route exact path="/fiction/:id" component={ItemDetail} />
           <Route exact path="/manage_item" component={ManageItem} />
           <Route exact path="/reviews" component={ReviewDetails} />
+          <Route exact path="/manage_user" component={ManageUser} />
           <Route exact path="/about" component={About} />
+          <Route exact path="/createfiction" component={CreateFiction} />
           <Route exact path="/login">
             <LoginPage setLoggedIn={setLoggedIn} setUsername={setUsername} />
           </Route>

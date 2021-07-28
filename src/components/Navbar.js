@@ -4,7 +4,6 @@ import { Link } from "react-router-dom"
 import './csscontrol/Navbar.css';
 import FictionLogo from './images/fictions.png';
 import { useHistory } from "react-router-dom";
-import { useState } from "react";
 
 const Webnav = ({username, isLoggedIn}) => {
     const history = useHistory();
@@ -35,8 +34,10 @@ const Webnav = ({username, isLoggedIn}) => {
                                 <Button variant="outline-danger" tag={Link} to="/login" >{username}</Button>
                                 <Dropdown.Toggle split variant="outline-danger" id="dropdown-split-basic" />
                                 <Dropdown.Menu>
-                                    <Dropdown.Item as={Link} to="/edituser">Manage Profile</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/manage_user">Manage Profile</Dropdown.Item>
                                     <Dropdown.Item as={Link} to="/manage_item">Manage Fiction</Dropdown.Item>
+                                        <Dropdown.Divider />
+                                        <Dropdown.Item as={Link} to="/createfiction">Create Fiction</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                             &nbsp;&nbsp;

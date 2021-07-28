@@ -2,11 +2,13 @@ import { useState, useEffect } from "react"
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom"
 import Client from "../base/api";
+import NotFound from "../NotFound";
+import { useHistory } from "react-router";
 
 const ManageItem = () => {
 
     const [fictionsArray, setFictionsArray] = useState([]);
-
+    const history = useHistory();
     useEffect(() => {
         Client
         .get("/manage_fiction", {
@@ -18,6 +20,7 @@ const ManageItem = () => {
             console.log(res.data);
         })
     }, [])
+
 
     return (
         <Container>

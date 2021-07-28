@@ -2,8 +2,22 @@ import { useState, useEffect } from "react"
 import { Container, Row, Col, Card, CardColumns, Button } from "react-bootstrap";
 import { Link} from "react-router-dom"
 import Client from "../base/api";
+import NotFound from "../NotFound";
 
 const ItemDetail = () => {
+    const [ficdetailsArray, setFicdetailsArray] = useState([]);
+
+    useEffect(() => {
+        Client
+        .get("/fictions/:id")
+        .then((res) => {
+            setFicdetailsArray(res.data);
+            console.log(res.data);
+        })
+    }, [])
+
+    if (!setFicdetailsArray) 
+    return null
 
     return(
         <Container>

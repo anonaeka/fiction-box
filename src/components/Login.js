@@ -16,14 +16,15 @@ export default function LoginPage({setLoggedIn, setUsername}) {
             .then(res => {
                 console.log(res)
                 localStorage.setItem("jwt", res.data.jwt)
-                setLoggedIn(true)
-                setUsername(res.data.username)
-
+                if (res.data.jwt) {
+                    setLoggedIn(true)
+                    setUsername(res.data.username)
+                    history.push("/")
+                }
             })
             .catch(err => {
                 console.log(err)
             })
-        history.push("/")
     }
     
     return (

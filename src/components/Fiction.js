@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { Container, Row, Col, Card, Button, Dropdown, InputGroup, SplitButton, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom"
 import Client from "./base/api";
+import NotFound from "./NotFound";
 
 const Fiction = () => {
 
@@ -15,6 +16,8 @@ const Fiction = () => {
             console.log(res.data);
         })
     }, [])
+
+    if (!setFictionsArray) return {NotFound}
 
     return (
         <Container>
@@ -56,7 +59,7 @@ const Fiction = () => {
                                     {fictions.user.username}
                                 </Card.Title>
                             </Card.Body>
-                            <Button variant="outline-secondary" as={Link} to="/item_detail">Read</Button>
+                            <Button variant="outline-secondary" as={Link} to={`/fiction/${fictions.id}`}>Read</Button>
                         </Card>
                     </Col>
                 ))}

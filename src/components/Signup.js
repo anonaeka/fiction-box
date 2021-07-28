@@ -16,12 +16,14 @@ export default function SignupPage() {
         Client
             .post("/sign_up", user)
             .then(res => {
+                alert("Sign up successfully.")
                 console.log(res)
+                history.push("/login")
             })
             .catch(err => {
+                alert("Sign up unsuccessful")
                 console.log(err)
             })
-        history.push("/login")
     }
 
 

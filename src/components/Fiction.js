@@ -12,7 +12,7 @@ const Fiction = () => {
         .get("/fictions")
         .then((res) => {
             setFictionsArray(res.data);
-            // console.log(res.data);
+            console.log(res.data);
         })
     }, [])
 
@@ -56,13 +56,12 @@ const Fiction = () => {
                                     {fictions.user.username}
                                 </Card.Title>
                             </Card.Body>
-                            <Button variant="outline-secondary" as={Link} to="/">Read</Button>
+                            <Button variant="outline-secondary" as={Link} to="/item_detail">Read</Button>
                         </Card>
                     </Col>
                 ))}
             </Row>
             </>
-
         </Container>
 
 

@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react"
 import { Container, Row, Col, Card, Button, Dropdown, InputGroup, SplitButton, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom"
-import Client from "./base/api";
+import Client from "../base/api";
 
-const EditUser = () => {
+const CreateFiction = () => {
     return (
         <Container>
-            <h1>Manage User</h1>
+            <h1>Create Fiction</h1>
         </Container>
     )
 }
 
-export default EditUser
+export default CreateFiction

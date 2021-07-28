@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom"
 import { Form, Button, Container} from "react-bootstrap";
 import Client from "./base/api";
 
-export default function LoginPage({setLoggedIn}) {
+export default function LoginPage({setLoggedIn, setUsername}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory();
@@ -17,6 +17,8 @@ export default function LoginPage({setLoggedIn}) {
                 console.log(res)
                 localStorage.setItem("jwt", res.data.jwt)
                 setLoggedIn(true)
+                setUsername(res.data.username)
+
             })
             .catch(err => {
                 console.log(err)

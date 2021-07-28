@@ -1,11 +1,12 @@
 import { Navbar, Container, Nav, Button, ButtonGroup, Dropdown } from "react-bootstrap";
 import {LinkContainer} from 'react-router-bootstrap';
-import { Link, Redirect } from "react-router-dom"
+import { Link } from "react-router-dom"
 import './csscontrol/Navbar.css';
 import FictionLogo from './images/fictions.png';
 import { useHistory } from "react-router-dom";
+import { useState } from "react";
 
-const Webnav = () => {
+const Webnav = ({username, isLoggedIn}) => {
     const history = useHistory();
     function logout() {
         window.location.reload();
@@ -27,16 +28,15 @@ const Webnav = () => {
                         <Nav.Link className="font-ex" as={Link} to="/about">About</Nav.Link>
                     </Nav>
                     <Nav>
-
                         &nbsp;&nbsp;
-                        {localStorage.getItem("jwt") ? (
+                        {isLoggedIn ? (
                             <>
                                 <Dropdown as={ButtonGroup}>
-                                <Button variant="outline-danger" tag={Link} to="/login" >User</Button>
+                                <Button variant="outline-danger" tag={Link} to="/login" >{username}</Button>
                                 <Dropdown.Toggle split variant="outline-danger" id="dropdown-split-basic" />
                                 <Dropdown.Menu>
                                     <Dropdown.Item as={Link} to="/edituser">Manage Profile</Dropdown.Item>
-                                    <Dropdown.Item as={Link} to="/createfiction">Manage Fiction</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/manage_item">Manage Fiction</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                             &nbsp;&nbsp;

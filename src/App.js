@@ -11,25 +11,45 @@ import { useState } from "react";
 import LoginPage from './components/Login';
 import SignupPage from './components/Signup';
 import stateReducer, { stateContext } from "./stateReducer";
+import ManageItem from './components/onuser/Manageitem';
+import Client from './components/base/api';
+import { useEffect } from 'react';
+import ItemDetail from './components/guestuser/Fictiondetails';
+import ReviewDetails from './components/guestuser/Reviewdetails';
 
 
 function App() {
-  const [isLoggedIn, setLoggedIn] = useState(false)
-  // const [store, dispatch] = useReducer(stateReducer, {
-  //   token: localStorage.getItem("jwt")
-  // })
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
+  useEffect(() => {
+    fetch("http://localhost:4000/api/v1/user/get_user", {
+      // credentials: "include"
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('jwt')}`
+      }
+    })
+    .then(response => response.json())
+    .then(json => {
+      if (json.user) {
+        setUsername(json.user.username)
+        setLoggedIn(true)
+      }}) 
+  }, [])
 
-  
+
   return (
     <Router>
-      <Webnav isLoggedIn={isLoggedIn}/>
+      <Webnav isLoggedIn={isLoggedIn} username={username} />
       <div>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/fiction" component={Fiction} />
+          <Route exact path="/item_detail" component={ItemDetail} />
+          <Route exact path="/manage_item" component={ManageItem} />
+          <Route exact path="/reviews" component={ReviewDetails} />
           <Route exact path="/about" component={About} />
           <Route exact path="/login">
-            <LoginPage setLoggedIn={setLoggedIn} />
+            <LoginPage setLoggedIn={setLoggedIn} setUsername={setUsername} />
           </Route>
           <Route exact path="/signup" component={SignupPage} />
           <Route component={NotFound} />

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom"
+import Client from "../base/api";
 
 const ManageItem = () => {
 
@@ -8,10 +9,13 @@ const ManageItem = () => {
 
     useEffect(() => {
         Client
-        .get("/fictions")
+        .get("/manage_fiction", {
+            headers: {"Authorization": `Bearer ${localStorage.getItem('jwt')}`
+        }
+        })
         .then((res) => {
             setFictionsArray(res.data);
-            // console.log(res.data);
+            console.log(res.data);
         })
     }, [])
 

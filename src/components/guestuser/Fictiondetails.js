@@ -1,57 +1,95 @@
-import { useState, useEffect } from "react"
+import { useEffect, useReducer } from "react"
 import { Container, Row, Col, Card, CardColumns, Button } from "react-bootstrap";
-import { Link} from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import Client from "../base/api";
-import NotFound from "../NotFound";
+import ReviewDetails from "./Reviewdetails";
 
-const ItemDetail = () => {
-    const [ficdetailsArray, setFicdetailsArray] = useState([]);
-
-    useEffect(() => {
-        Client
-        .get("/fictions/:id")
-        .then((res) => {
-            setFicdetailsArray(res.data);
-            console.log(res.data);
-        })
-    }, [])
-
-    if (!setFicdetailsArray) 
-    return null
+    const reducer = (state, action) => {
+        switch (action.type) {
+            case 'FICTIONS_REQUEST':
+                return { ...state, loading: true };
+            case 'FICTIONS_SUCCESS':
+                return { ...state, loading: false, fictions: action.payload, error: '' };
+            case 'FICTIONS_FAIL':
+                return { ...state, error: action.payload, loading: false };
+            default:
+                return state;
+        }
+    };
+    
+    const ItemDetail = () => {
+        const { id } = useParams();
+        const [state, dispatch] = useReducer(reducer, {
+            loading: false,
+            error: '',
+            fictions: [],
+        });
+        const { loading, error, fictions } = state;
+        const loadFictions = async () => {
+            dispatch({ type: 'FICTIONS_REQUEST' });
+            try {
+                const { data } = await Client
+                    .get(
+                        `/fictions/${id}`
+                    );
+                dispatch({ type: 'FICTIONS_SUCCESS', payload: data });
+            } catch (err) {
+                dispatch({ type: 'FICTIONS_FAIL', payload: err.message });
+            }
+        };
+    
+        useEffect(() => {
+            loadFictions();
+        }, []);
 
     return(
         <Container>
+            <h1>{fictions.name}</h1>
+            <>
+            {loading ? (
+                    <h1>Loading...</h1>
+                ) : error ? (
+                    <h1>Error: No Fiction Details </h1>
+                ) : fictions.length === 0 ? (
+                    <h1>No data found</h1>
+                ) : (
             <CardColumns>
                 <Card>
-                    <Card.Img src="holder.js/100px160" />
+                    <Card.Img src={fictions.image_url} />
                 </Card>
                 <Card className="text-end">
                     <blockquote className="blockquote mb-0 card-body">
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
-                            erat a ante.
+                        {fictions.description}
                         </p>
                         <footer className="blockquote-footer">
                             <small className="text-muted">
-                                Someone famous in <cite title="Source Title">Source Title</cite>
+                                By : <cite title="Source Title">{fictions.user.username}</cite>
                             </small>
+                            <Card.Text>
+                            <small className="text-muted">{fictions.category.name}</small>
+                        </Card.Text>
                         </footer>
                     </blockquote>
                 </Card>
                 <Card>
                     <Card.Body>
-                        <Card.Title>Card title</Card.Title>
+                        <Card.Title>Article</Card.Title>
                         <Card.Text>
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This card has even longer content than the first to
-                            show that equal height action.
-                        </Card.Text>
-                        <Card.Text>
-                            <small className="text-muted">Last updated 3 mins ago</small>
+                            {fictions.article}
                         </Card.Text>
                     </Card.Body>
                 </Card>
+                <Card.Body>
+                    <h3><center>Reviews</center></h3>
+                    <ReviewDetails />
+                </Card.Body>
+                <Card.Body>
+                    <Button variant="outline-warning" as={Link} to="/fiction" >Go Back</Button>
+                </Card.Body>
             </CardColumns>
+            )}
+            </>
         </Container>
     )
 }

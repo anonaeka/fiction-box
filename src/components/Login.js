@@ -19,10 +19,12 @@ export default function LoginPage({setLoggedIn, setUsername}) {
                 if (res.data.jwt) {
                     setLoggedIn(true)
                     setUsername(res.data.username)
+                    alert("Login Successfully")
                     history.push("/")
                 }
             })
             .catch(err => {
+                alert("Login Fails")
                 console.log(err)
             })
     }

@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from "react"
-import { Container, Card, CardColumns, Button, InputGroup, FormControl, Form } from "react-bootstrap";
+import { Container, Card, CardColumns, Button, InputGroup, FormControl, Form, Offcanvas, Badge } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom"
 import Client from "../base/api";
 
@@ -17,6 +17,10 @@ const reducer = (state, action) => {
 };
 
 const ItemDetail = () => {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const [reviewArray, setReviewArray] = useState("");
     const [title, setTitleName] = useState("");
     const [description, setDesText] = useState("");
     const [score, setScore] = useState("");
@@ -59,6 +63,17 @@ const ItemDetail = () => {
             })
     }, [])
 
+    useEffect(() => {
+        Client
+            .get("/reviews")
+                .then(result => {
+                    const { data } = result;
+                    console.log(data)
+                    setReviewArray(data)
+                })
+    }, [])
+
+
     const post = async (event) => {
         event.preventDefault()
         const user = { title, description, score, fiction_id, user_id }
@@ -79,7 +94,7 @@ const ItemDetail = () => {
 
     return (
         <Container>
-            <h1>{fictions.name}</h1>
+            <h1 key={fictions.id}>{fictions.name}</h1>
             <>
                 {loading ? (
                     <h1>Loading...</h1>
@@ -139,6 +154,31 @@ const ItemDetail = () => {
                                 </Button>
                             </InputGroup>
                         </Card.Body>
+                        <>
+
+                            <Card.Body>
+                                <Button variant="outline-secondary" onClick={handleShow}>
+                                    Comments World
+                                </Button>
+                                <Offcanvas show={show} onHide={handleClose}>
+                                    <Offcanvas.Header closeButton>
+                                        <Offcanvas.Title>All Comments in Fiction-Box</Offcanvas.Title>
+                                    </Offcanvas.Header>
+                                    <Offcanvas.Body>
+                                    {reviewArray && reviewArray.map(reviews =>
+                                    <div key={reviews.id}>
+                                    <Badge bg="danger">User : {reviews.user.username}</Badge>
+                                    <p><Badge bg="light" text="dark">Fiction name : {reviews.fiction.name}</Badge></p>
+                                    <p><Badge bg="light" text="dark">Title : {reviews.title}</Badge></p>
+                                    <p><Badge bg="light" text="dark">Description : {reviews.description}</Badge></p>
+                                    <p><Badge bg="light" text="dark">Score : {reviews.score} 🌟</Badge></p>
+                                    </div>
+                                    )}
+                                    </Offcanvas.Body>
+                                </Offcanvas>
+                            </Card.Body>
+
+                        </>
                         <Card.Body>
                             <Button variant="outline-warning" as={Link} to="/fiction" >Go Back</Button>
                         </Card.Body>

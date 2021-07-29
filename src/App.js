@@ -14,7 +14,6 @@ import ManageItem from './components/onuser/Manageitem';
 import Client from './components/base/api';
 import { useEffect } from 'react';
 import ItemDetail from './components/guestuser/Fictiondetails';
-import ReviewDetails from './components/guestuser/Reviewdetails';
 import ManageUser from './components/onuser/Manageuser';
 import CreateFiction from './components/onuser/Createfic';
 import EditFiction from './components/onuser/Editfict';
@@ -51,7 +50,6 @@ function App() {
           <Route exact path="/fiction" component={Fiction} />
           <Route exact path="/fiction/:id" component={ItemDetail} />
           <Route exact path="/manage_item" component={ManageItem} />
-          <Route exact path="/reviews" component={ReviewDetails} />
           <Route exact path="/manage_user" component={ManageUser} />
           <Route exact path="/about" component={About} />
           <Route exact path="/createfiction" component={CreateFiction} />

@@ -20,7 +20,7 @@ const ManageUser = () => {
             })
             .then(res => {
                 alert("Update!!")
-                history.push("/manage_user")
+                history.push("/")
                 console.log(res)
             })
             .catch(err => {

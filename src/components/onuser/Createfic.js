@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
-import { Container, Form, Button } from "react-bootstrap";
-import { useHistory } from "react-router-dom"
+import { Container, Form, Button, Card } from "react-bootstrap";
+import { useHistory, Link } from "react-router-dom"
 import Client from "../base/api";
 import axios from "axios";
 
@@ -18,7 +18,7 @@ const CreateFiction = () => {
     const uploadImage = e => {
         const files = e.target.files[0];
         const formData = new FormData();
-        formData.append("upload_present", "fictionimage")
+        formData.append("upload_present", "cloudfiction")
         formData.append("file", files);
         setLoading(true);
 
@@ -92,17 +92,18 @@ const CreateFiction = () => {
                     <Form.Label>Image Upload</Form.Label>
                     <>
                         <Form.Control type="file" size="sm" onChange={uploadImage} />
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Image URL [If upload does not work] </Form.Label>
-                        <Form.Control type="text" placeholder="Image URL" onChange={(e) => setImageurl(e.target.value)} />
-                    </Form.Group>
-                    {loading ? <h3>Loading...</h3> : <img className="setting-image" src={image_url} />}
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Label>Image URL [If upload does not work] </Form.Label>
+                            <Form.Control type="text" placeholder="Image URL" onChange={(e) => setImageurl(e.target.value)} />
+                        </Form.Group>
+                        {loading ? <h3>Loading...</h3> : <Card.Img className="setting-image" variant="top" src={image_url} />}
                     </>
+                    <Button onClick={create} variant="primary" type="register">
+                        Create
+                    </Button>
                 </Form.Group>
-                <Button onClick={create} variant="primary" type="register">
-                    Create
-                </Button>
             </Form>
+            <Button variant="outline-warning" as={Link} to="/manage_item" >Go Back</Button>
         </Container>
     )
 }

@@ -27,7 +27,7 @@ function App() {
     Client
       .get("/get_user", {
         headers: {
-          "Authorization" : `Bearer ${localStorage.getItem('jwt')}`
+          "Authorization": `Bearer ${localStorage.getItem('jwt')}`
         }
       })
       .then((res) => {
@@ -40,7 +40,7 @@ function App() {
       .catch((error) => {
         console.error(error)
       })
-    }, [])
+  }, [])
 
   return (
     <Router>

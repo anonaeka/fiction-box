@@ -1,5 +1,5 @@
-import { useEffect, useReducer} from "react"
-import { Container, Card, CardColumns, Button} from "react-bootstrap";
+import { useEffect, useReducer, useState } from "react"
+import { Container, Card, CardColumns, Button, InputGroup, FormControl, Form } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom"
 import Client from "../base/api";
 
@@ -17,6 +17,11 @@ const reducer = (state, action) => {
 };
 
 const ItemDetail = () => {
+    const [title, setTitleName] = useState("");
+    const [description, setDesText] = useState("");
+    const [score, setScore] = useState("");
+    const [user_id, setUserId] = useState([]);
+    const [fiction_id, setFictionId] = useState([]);
     const { id } = useParams();
     const [state, dispatch] = useReducer(reducer, {
         loading: false,
@@ -41,6 +46,36 @@ const ItemDetail = () => {
         loadFictions();
     }, []);
 
+    useEffect(() => {
+        Client
+            .get("/get_user", {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('jwt')}`
+                }
+            })
+            .then((res) => {
+                setUserId(res.data.user.id);
+                // console.log(res.data.user.id);
+            })
+    }, [])
+
+    const post = async (event) => {
+        event.preventDefault()
+        const user = { title, description, score, fiction_id, user_id }
+        Client
+            .post("reviews", user, {
+                headers: { "Authorization": `Bearer ${localStorage.getItem('jwt')}` },
+            })
+            .then(res => {
+                alert("Successfully.")
+                window.location.reload();
+                // console.log(res)
+            })
+            .catch(err => {
+                alert("Unsuccessful")
+                // console.log(err)
+            })
+    }
 
     return (
         <Container>
@@ -81,7 +116,31 @@ const ItemDetail = () => {
                             </Card.Body>
                         </Card>
                         <Card.Body>
-                        <Button variant="outline-warning" as={Link} to="/fiction" >Go Back</Button>
+                            <h3>Comments</h3>
+                            <InputGroup size="sm" className="mb-3">
+                                <InputGroup.Text id="inputGroup-sizing-sm">Title</InputGroup.Text>
+                                <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" onChange={(e) => setTitleName(e.target.value)} />
+                                <Form.Select aria-label="Default select example" onChange={(e) => setScore(e.target.value)}>
+                                    <option defaultValue>Score</option>
+                                    <option value={`${1}`}>1</option>
+                                    <option value={`${2}`}>2</option>
+                                    <option value={`${3}`}>3</option>
+                                    <option value={`${4}`}>4</option>
+                                    <option value={`${5}`}>5</option>
+                                </Form.Select>
+                                <InputGroup.Text id="inputGroup-sizing-sm">Input number {fictions.id} to verify before post</InputGroup.Text>
+                                <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" onChange={(e) => setFictionId(e.target.value)} />
+                            </InputGroup>
+                            <InputGroup size="sm" className="mb-3">
+                                <InputGroup.Text id="inputGroup-sizing-sm">Description</InputGroup.Text>
+                                <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" onChange={(e) => setDesText(e.target.value)} />
+                                <Button variant="secondary" size="sm" onClick={post} >
+                                    Post
+                                </Button>
+                            </InputGroup>
+                        </Card.Body>
+                        <Card.Body>
+                            <Button variant="outline-warning" as={Link} to="/fiction" >Go Back</Button>
                         </Card.Body>
                     </CardColumns>
                 )}

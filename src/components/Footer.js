@@ -5,7 +5,7 @@ const Webfoot = () => {
     return (
             <Navbar expand="lg" variant="light" bg="light">
                 <Container>
-                    <Navbar.Brand>Footer</Navbar.Brand>
+                    <Navbar.Brand>Fiction-Box by Anon</Navbar.Brand>
                 </Container>
             </Navbar>
     )

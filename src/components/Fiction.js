@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react"
-import { Container, Row, Col, Card, Button, Dropdown, InputGroup, SplitButton, FormControl } from "react-bootstrap";
+import { Container, Row, Col, Card, Button, InputGroup, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom"
 import Client from "./base/api";
 
@@ -46,16 +46,7 @@ const Fiction = () => {
             <>
                 <InputGroup className="mb-3">
                     <FormControl aria-label="Text input with dropdown button" />
-                    <SplitButton
-                        variant="outline-secondary"
-                        title="Search"
-                        id="segmented-button-dropdown-2"
-                        alignRight
-                    >
-                        <Dropdown.Item>A-Z</Dropdown.Item>
-                        <Dropdown.Item>New Fictions</Dropdown.Item>
-                        <Dropdown.Item>Old Fictions</Dropdown.Item>
-                    </SplitButton>
+                    <Button variant="outline-info">Search</Button>
                 </InputGroup>
             </>
             <>

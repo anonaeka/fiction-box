@@ -10,5 +10,4 @@ const CreateReview = () => {
         </Container>
     )
 }
-
 export default CreateReview

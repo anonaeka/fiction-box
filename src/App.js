@@ -17,6 +17,7 @@ import ItemDetail from './components/guestuser/Fictiondetails';
 import ReviewDetails from './components/guestuser/Reviewdetails';
 import ManageUser from './components/onuser/Manageuser';
 import CreateFiction from './components/onuser/Createfic';
+import EditFiction from './components/onuser/Editfict';
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
           <Route exact path="/manage_user" component={ManageUser} />
           <Route exact path="/about" component={About} />
           <Route exact path="/createfiction" component={CreateFiction} />
+          <Route exact path="/editfiction/:id" component={EditFiction} />
           <Route exact path="/login">
             <LoginPage setLoggedIn={setLoggedIn} setUsername={setUsername} />
           </Route>

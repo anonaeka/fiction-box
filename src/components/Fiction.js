@@ -38,6 +38,8 @@ const Fiction = () => {
         loadFictions();
     }, []);
 
+    
+
     return (
         <Container>
             <h1><center>Fictions</center></h1>

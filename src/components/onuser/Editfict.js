@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useParams } from "react"
 import { Container, Form, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom"
 import Client from "../base/api";
 import axios from "axios";
 
-const CreateFiction = () => {
+const EditFiction = () => {
+    
+    const { id } = useParams();
     const [name, setFicName] = useState("");
     const [description, setDesText] = useState("");
     const [article, setArtText] = useState("");
@@ -36,7 +38,7 @@ const CreateFiction = () => {
         event.preventDefault()
         const user = { name, description, article, category_id, user_id, image_url }
         Client
-            .post("/fictions", user, {
+            .patch(`/fictions/${id}`, user, {
                 headers: { "Authorization": `Bearer ${localStorage.getItem('jwt')}` },
             })
             .then(res => {
@@ -49,6 +51,7 @@ const CreateFiction = () => {
                 console.log(err)
             })
     }
+
 
     useEffect(() => {
         Client
@@ -63,9 +66,10 @@ const CreateFiction = () => {
             })
     }, [])
 
+
     return (
         <Container>
-            <h1><center>Create Fiction</center></h1>
+            <h1><center>Edit Fiction</center></h1>
             <Form>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Fiction Name</Form.Label>
@@ -100,11 +104,11 @@ const CreateFiction = () => {
                     </>
                 </Form.Group>
                 <Button onClick={create} variant="primary" type="register">
-                    Create
+                    Edit
                 </Button>
             </Form>
         </Container>
     )
 }
 
-export default CreateFiction
+export default EditFiction

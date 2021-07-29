@@ -73,7 +73,7 @@ const ManageItem = () => {
                                     </Card.Title>
                                 </Card.Body>
                                 <Card.Body>
-                                    <Button variant="outline-success" as={Link} to="/">Edit</Button>
+                                    <Button variant="outline-success" as={Link} to={`/editfiction/${fictions.id}`}>Edit</Button>
                                     &nbsp;&nbsp;
                                     <Button variant="danger" onClick={(e) => { if (window.confirm('Are you sure you wish to delete this item?')) this.deleteItem(e) }} >Delete</Button>
                                 </Card.Body>

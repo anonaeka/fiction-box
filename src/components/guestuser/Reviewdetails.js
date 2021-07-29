@@ -5,14 +5,16 @@ import Client from "../base/api";
 import "../csscontrol/Userimage.css"
 
 const ReviewDetails = () => {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    
     return (
         <Container>
-            <Card>
-            <Card.Header>
-                    <Badge pill bg="primary">
-                    User
-                    </Badge>
-            </Card.Header>
+            <Card border="dark" style={{ width: '20rem' }}>
+                <Card.Header><Badge pill bg="primary">
+                        User
+                    </Badge></Card.Header>
                 <Card.Body>
                     <Card.Title>Title</Card.Title>
                     <Card.Text>

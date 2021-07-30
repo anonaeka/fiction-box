@@ -41,6 +41,7 @@ const ItemDetail = () => {
                     `/fictions/${id}`
                 );
             dispatch({ type: 'FICTIONS_SUCCESS', payload: data });
+            // console.log(data)
         } catch (err) {
             dispatch({ type: 'FICTIONS_FAIL', payload: err.message });
         }

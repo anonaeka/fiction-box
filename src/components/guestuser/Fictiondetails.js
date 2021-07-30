@@ -130,7 +130,14 @@ const ItemDetail = () => {
                                 </Card.Text>
                             </Card.Body>
                         </Card>
-                        <Card.Body>
+                        <>
+                            <Card.Body>
+                                <Button variant="outline-secondary" onClick={handleShow}>
+                                    Comments Zone
+                                </Button>
+                                <Offcanvas show={show} onHide={handleClose}>
+                                    <Offcanvas.Header closeButton>
+                                    <Card.Body>
                             <h3>Comments</h3>
                             <InputGroup size="sm" className="mb-3">
                                 <InputGroup.Text id="inputGroup-sizing-sm">Title</InputGroup.Text>
@@ -143,7 +150,7 @@ const ItemDetail = () => {
                                     <option value={`${4}`}>4</option>
                                     <option value={`${5}`}>5</option>
                                 </Form.Select>
-                                <InputGroup.Text id="inputGroup-sizing-sm">Input number {fictions.id} to verify before post</InputGroup.Text>
+                                <InputGroup.Text id="inputGroup-sizing-sm">Input fiction number {fictions.id} before post</InputGroup.Text>
                                 <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" onChange={(e) => setFictionId(e.target.value)} />
                             </InputGroup>
                             <InputGroup size="sm" className="mb-3">
@@ -154,16 +161,8 @@ const ItemDetail = () => {
                                 </Button>
                             </InputGroup>
                         </Card.Body>
-                        <>
-
-                            <Card.Body>
-                                <Button variant="outline-secondary" onClick={handleShow}>
-                                    Comments World
-                                </Button>
-                                <Offcanvas show={show} onHide={handleClose}>
-                                    <Offcanvas.Header closeButton>
-                                        <Offcanvas.Title>All Comments in Fiction-Box</Offcanvas.Title>
                                     </Offcanvas.Header>
+                                    <center><Offcanvas.Title>All Comments in Fiction-Box</Offcanvas.Title></center>
                                     <Offcanvas.Body>
                                     {reviewArray && reviewArray.map(reviews =>
                                     <div key={reviews.id}>

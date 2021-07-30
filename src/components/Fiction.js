@@ -44,12 +44,6 @@ const Fiction = () => {
         <Container>
             <h1><center>Fictions</center></h1>
             <>
-                <InputGroup className="mb-3">
-                    <FormControl aria-label="Text input with dropdown button" />
-                    <Button variant="outline-info">Search</Button>
-                </InputGroup>
-            </>
-            <>
                 {loading ? (
                     <h1>Loading...</h1>
                 ) : error ? (

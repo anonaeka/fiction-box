@@ -8,9 +8,9 @@ import { useHistory } from "react-router-dom";
 const Webnav = ({username, isLoggedIn}) => {
     const history = useHistory();
     function logout() {
+        history.push("/login")
         window.location.reload();
         localStorage.removeItem('jwt')
-        history.push("/login")
     }
     
     return (
